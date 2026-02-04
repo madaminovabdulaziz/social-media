@@ -2,7 +2,7 @@ import uuid
 from typing import Annotated, AsyncGenerator
 
 import jwt
-from fastapi import Depends
+from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -12,7 +12,7 @@ from src.core.security import decode_access_token
 from src.models.user import User
 from src.services.user import UserService
 
-security_scheme = HTTPBearer()
+security_scheme = HTTPBearer(auto_error=False)
 
 
 async def get_db_session() -> AsyncGenerator[AsyncSession, None]:
@@ -21,9 +21,16 @@ async def get_db_session() -> AsyncGenerator[AsyncSession, None]:
 
 
 async def get_current_user(
-    credentials: Annotated[HTTPAuthorizationCredentials, Depends(security_scheme)],
+    credentials: Annotated[
+        HTTPAuthorizationCredentials | None, Depends(security_scheme)
+    ],
     session: Annotated[AsyncSession, Depends(get_db_session)],
 ) -> User:
+    if credentials is None:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Not authenticated",
+        )
     token = credentials.credentials
     try:
         payload = decode_access_token(token)

@@ -69,4 +69,4 @@ class TestFeed:
 
     async def test_feed_unauthenticated(self, client: AsyncClient) -> None:
         resp = await client.get("/feed")
-        assert resp.status_code == 403
+        assert resp.status_code == 401

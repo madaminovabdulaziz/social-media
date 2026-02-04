@@ -112,7 +112,7 @@ class TestCreatePost:
     async def test_create_post_unauthenticated(self, client: AsyncClient) -> None:
         payload = {"title": "My Post", "content": "Hello"}
         resp = await client.post("/posts", json=payload)
-        assert resp.status_code == 403
+        assert resp.status_code == 401
 
     async def test_create_post_empty_title(
         self, client: AsyncClient, auth_headers: dict

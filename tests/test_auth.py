@@ -147,7 +147,7 @@ class TestMe:
 
     async def test_me_unauthenticated(self, client: AsyncClient) -> None:
         resp = await client.get("/auth/me")
-        assert resp.status_code == 403
+        assert resp.status_code == 401
 
 
 class TestUpdateMe:
@@ -189,7 +189,7 @@ class TestUpdateMe:
 
     async def test_update_unauthenticated(self, client: AsyncClient) -> None:
         resp = await client.patch("/auth/me", json={"username": "hack"})
-        assert resp.status_code == 403
+        assert resp.status_code == 401
 
 
 class TestVerifyEmail:
