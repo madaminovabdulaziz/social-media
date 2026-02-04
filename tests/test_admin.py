@@ -28,11 +28,7 @@ class TestCleanupUsers:
         await db_session.refresh(stale_user)
 
         old_time = datetime.now(timezone.utc) - timedelta(hours=48)
-        stmt = (
-            update(User)
-            .where(User.id == stale_user.id)
-            .values(created_at=old_time)
-        )
+        stmt = update(User).where(User.id == stale_user.id).values(created_at=old_time)
         await db_session.execute(stmt)
         await db_session.commit()
 
@@ -72,9 +68,7 @@ class TestCleanupUsers:
 
         old_time = datetime.now(timezone.utc) - timedelta(hours=48)
         stmt = (
-            update(User)
-            .where(User.id == verified_user.id)
-            .values(created_at=old_time)
+            update(User).where(User.id == verified_user.id).values(created_at=old_time)
         )
         await db_session.execute(stmt)
         await db_session.commit()

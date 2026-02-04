@@ -42,10 +42,7 @@ class Settings(BaseSettings):
     @classmethod
     def secret_key_min_length(cls, v: str) -> str:
         if len(v) < 32:
-            raise ValueError(
-                "SECRET_KEY must be at least 32 characters. "
-                "Generate one with: python -c \"import secrets; print(secrets.token_urlsafe(64))\""
-            )
+            raise ValueError("SECRET_KEY must be at least 32 characters.")
         return v
 
     @field_validator("DATABASE_URL")

@@ -161,10 +161,6 @@ class PostService:
         return True
 
     async def _get_with_author(self, post_id: uuid.UUID) -> Post:
-        stmt = (
-            select(Post)
-            .where(Post.id == post_id)
-            .options(selectinload(Post.author))
-        )
+        stmt = select(Post).where(Post.id == post_id).options(selectinload(Post.author))
         result = await self._session.execute(stmt)
         return result.scalar_one()

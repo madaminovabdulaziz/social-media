@@ -11,6 +11,7 @@ from src.core.exceptions import (
     InvalidVerificationTokenError,
     UsernameAlreadyExistsError,
 )
+from src.core.limiter import limiter
 from src.core.security import create_access_token, hash_password, verify_password
 from src.models.user import User
 from src.schemas.user import (
@@ -21,7 +22,6 @@ from src.schemas.user import (
     UserUpdate,
     UserVerify,
 )
-from src.core.limiter import limiter
 from src.services.email import send_verification_email
 from src.services.user import UserService
 

@@ -125,7 +125,9 @@ class TestCreatePost:
         self, client: AsyncClient, unverified_auth_headers: dict
     ) -> None:
         payload = {"title": "My Post", "content": "Hello world"}
-        resp = await client.post("/posts", json=payload, headers=unverified_auth_headers)
+        resp = await client.post(
+            "/posts", json=payload, headers=unverified_auth_headers
+        )
         assert resp.status_code == 403
         assert "verification" in resp.json()["detail"].lower()
 
@@ -217,9 +219,7 @@ class TestDeletePost:
         db_session: AsyncSession,
     ) -> None:
         post = await _create_post_in_db(db_session, test_user)
-        resp = await client.delete(
-            f"/posts/{post.id}", headers=second_auth_headers
-        )
+        resp = await client.delete(f"/posts/{post.id}", headers=second_auth_headers)
         assert resp.status_code == 403
 
     async def test_delete_post_not_found(
@@ -366,5 +366,7 @@ class TestLike:
     ) -> None:
         post = await _create_post_in_db(db_session, test_user)
         await client.post(f"/posts/{post.id}/like", headers=second_auth_headers)
-        resp = await client.delete(f"/posts/{post.id}/like", headers=second_auth_headers)
+        resp = await client.delete(
+            f"/posts/{post.id}/like", headers=second_auth_headers
+        )
         assert resp.status_code == 204

@@ -14,9 +14,7 @@ if TYPE_CHECKING:
 
 class Like(Base):
     __tablename__ = "likes"
-    __table_args__ = (
-        UniqueConstraint("user_id", "post_id", name="uq_user_post_like"),
-    )
+    __table_args__ = (UniqueConstraint("user_id", "post_id", name="uq_user_post_like"),)
 
     id: Mapped[uuid.UUID] = mapped_column(
         primary_key=True,

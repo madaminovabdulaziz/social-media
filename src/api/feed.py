@@ -6,7 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.api.deps import get_current_user, get_db_session
 from src.models.user import User
-from src.schemas.feed import FeedResponse, FeedUserResponse, FeedPostResponse
+from src.schemas.feed import FeedPostResponse, FeedResponse, FeedUserResponse
 from src.services.feed import FeedService
 
 router = APIRouter(tags=["feed"])

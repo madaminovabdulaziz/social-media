@@ -58,9 +58,11 @@ class FeedService:
         stmt = select(func.count(func.distinct(User.id))).select_from(User)
 
         if keyword or date_from or date_to:
-            stmt = select(func.count(func.distinct(User.id))).select_from(
-                User
-            ).join(User.posts)
+            stmt = (
+                select(func.count(func.distinct(User.id)))
+                .select_from(User)
+                .join(User.posts)
+            )
             if keyword:
                 pattern = f"%{keyword}%"
                 stmt = stmt.where(

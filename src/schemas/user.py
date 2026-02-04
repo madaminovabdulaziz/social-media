@@ -27,9 +27,7 @@ class UserCreate(BaseModel):
     @classmethod
     def full_name_characters(cls, v: str | None) -> str | None:
         if v is not None and not _FULL_NAME_RE.fullmatch(v):
-            raise ValueError(
-                "Full name must contain only letters, spaces, and hyphens"
-            )
+            raise ValueError("Full name must contain only letters, spaces, and hyphens")
         return v
 
 
@@ -67,9 +65,7 @@ class UserUpdate(BaseModel):
     @classmethod
     def full_name_characters(cls, v: str | None) -> str | None:
         if v is not None and not _FULL_NAME_RE.fullmatch(v):
-            raise ValueError(
-                "Full name must contain only letters, spaces, and hyphens"
-            )
+            raise ValueError("Full name must contain only letters, spaces, and hyphens")
         return v
 
 

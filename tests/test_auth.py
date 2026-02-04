@@ -43,9 +43,7 @@ class TestRegister:
 
         from sqlalchemy import select
 
-        stmt = select(VerificationToken).where(
-            VerificationToken.user_id == user_id
-        )
+        stmt = select(VerificationToken).where(VerificationToken.user_id == user_id)
         result = await db_session.execute(stmt)
         token = result.scalar_one_or_none()
         assert token is not None
@@ -105,9 +103,7 @@ class TestRegister:
 
 
 class TestLogin:
-    async def test_login_success(
-        self, client: AsyncClient, test_user: User
-    ) -> None:
+    async def test_login_success(self, client: AsyncClient, test_user: User) -> None:
         payload = {
             "email": "testuser@example.com",
             "password": "StrongPass123",
@@ -215,9 +211,7 @@ class TestVerifyEmail:
         from sqlalchemy import select
 
         user_id = uuid.UUID(reg_resp.json()["id"])
-        stmt = select(VerificationToken).where(
-            VerificationToken.user_id == user_id
-        )
+        stmt = select(VerificationToken).where(VerificationToken.user_id == user_id)
         result = await db_session.execute(stmt)
         vt = result.scalar_one()
 

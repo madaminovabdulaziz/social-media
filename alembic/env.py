@@ -2,9 +2,10 @@ import asyncio
 import os
 from logging.config import fileConfig
 
-from alembic import context
 from sqlalchemy import pool
 from sqlalchemy.ext.asyncio import async_engine_from_config
+
+from alembic import context
 
 # Provide a minimal SECRET_KEY so Settings() can be instantiated when running
 # migrations (Alembic only needs DATABASE_URL, not the app secret).

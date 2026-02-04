@@ -106,9 +106,7 @@ async def check_db_health() -> bool:
     try:
         engine = get_engine()
         async with engine.connect() as conn:
-            await conn.execute(
-                __import__("sqlalchemy").text("SELECT 1")
-            )
+            await conn.execute(__import__("sqlalchemy").text("SELECT 1"))
         return True
     except Exception:
         logger.exception("Database health check failed")
